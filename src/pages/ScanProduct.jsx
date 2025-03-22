@@ -138,7 +138,7 @@ const ScanProduct = () => {
         },
       };
 
-      const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
+      const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
       const prompt = OCRPROMPT;
 
       const ocr = await model.generateContent([prompt, imagePart]);
@@ -220,9 +220,11 @@ const ScanProduct = () => {
             <h2>Ingredients Analysis</h2>
             {analysis.ingredients.map((ingredient, index) => (
               <div key={index} className={`ingredient-item ${ingredient.safety.toLowerCase()}`}>
-                <h3>{ingredient.name}</h3>
-                <span className="safety-badge">{ingredient.safety}</span>
+                <h3>{ingredient.name}<span className="safety-badge">{ingredient.safety}</span></h3>
+                <i><p><u>Other Names: {ingredient.otherNames}</u></p></i>
                 <p>{ingredient.description}</p>
+                <p><b>Side Effects:</b> {ingredient.sideEffects.join(', ')}</p>
+                <p><b>Concerns:</b> {ingredient.concerns.join(', ')}</p>
               </div>
             ))}
           </div>
