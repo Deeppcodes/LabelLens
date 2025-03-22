@@ -7,7 +7,7 @@ import fs from "fs";
 
 const genAI = new GoogleGenerativeAI('AIzaSyA_aflW4puinlv-NCOnkYeR5QyTsBdfBTA');
 
-const OCRPROMPT = "return the ingredients displayed in the image as a list in this exact format, do not add any other text, and show ALL ingredients, not only other ingredients: [item1name, item2name, item3name]";
+const OCRPROMPT = "return the ingredients displayed in the image as a list in this exact format, do not add any other text, and show ALL ingredients, not only other ingredients, list each ingredient as a seperate item: [item1name, item2name, item3name]";
 
 const PROFILEALLERGIES = `Given that the user has these allergies `
 const PROFILECONDITIONS = `and these conditions `
@@ -28,10 +28,16 @@ const ANALYSISPROMPT = `Analyze these skincare/medication ingredients and return
   "recommendations": "Tailored advice based on risks"
 }
 
-**Rules for overallSafety**:
-1. **High Risk** if:
+**Rules for safe**:
+1. **beware** if:
    - Any ingredient is banned in EU/US/Japan
    - Contains carcinogens, endocrine disruptors, severe allergens, or confits due to medical conditions
+2. **caution** if:
+   - Irritants, or minor cautions
+
+**Rules for overallSafety**:
+1. **High Risk** if:
+   - At least 1 item as beware
 2. **Moderate Risk** if:
    - Contains regionally restricted ingredients (e.g., phenoxyethanol limited to 1% in EU)
    - If skincare product does not match listed skin type, but no severe allergens
