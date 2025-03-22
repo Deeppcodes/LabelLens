@@ -43,7 +43,7 @@ const Hero = () => {
       </h1>
       
       <p className="hero-description">
-        Analyze ingredients, scan labels, and make informed decisions about what's in your products.
+        Analyze ingredients, scan labels, and make informed decisions about which products to use.
       </p>
 
       <div className="profile-notice">

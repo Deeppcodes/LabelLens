@@ -1,0 +1,81 @@
+.product-page {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+  margin-bottom: 2rem;
+}
+
+.product-container {
+  background: white;
+  border-radius: var(--radius);
+  padding: 2rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.product-header {
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #E5E7EB;
+}
+
+.product-header h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.brand, .composition {
+  display: block;
+  font-size: 1.25rem;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+
+.category, .uses {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  background: var(--light-gray);
+  border-radius: 1rem;
+  font-size: 0.875rem;
+  color: var(--gray-text);
+}
+
+.product-details {
+  margin-top: 2rem;
+}
+
+.product-details h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.product-details p {
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
+}
+
+.product-not-found {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.product-not-found button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+}
