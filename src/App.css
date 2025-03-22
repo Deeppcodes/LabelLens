@@ -61,6 +61,7 @@ body {
   align-items: center;
   gap: 0.5rem;
   text-decoration: none;
+  color: var(--dark-text); /* Ensure the link color doesn't override */
 }
 
 .logo-image {
@@ -71,6 +72,10 @@ body {
 .logo-text {
   font-size: 1.5rem;
   font-weight: 700;
+  color: var(--dark-text); /* Explicitly set to dark text color */
+}
+
+.logo-text span {
   color: var(--primary-color);
 }
 
@@ -92,13 +97,14 @@ body {
   font-size: 0.9rem;
   font-weight: 500;
   transition: background-color 0.2s;
+  text-decoration: none;
 }
 
 .nav-button:hover {
   background-color: var(--light-gray);
 }
 
-.nav-button:first-child {
+.nav-items .nav-item:first-child .nav-button {
   background-color: var(--primary-light);
   color: var(--primary-color);
 }
@@ -332,4 +338,131 @@ body {
   font-size: 0.875rem;
   margin-top: 0.5rem;
   color: var(--gray-text);
+}
+
+/* Add these new styles while keeping all existing styles */
+
+.feature-descriptions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin: 4rem auto;
+  padding: 0 2rem;
+  max-width: 1200px;
+}
+
+.feature {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  text-align: center;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.feature:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+.feature-icon {
+  background: var(--primary-color);
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  transition: transform 0.2s ease-in-out;
+}
+
+.feature:hover .feature-icon {
+  transform: scale(1.1);
+}
+
+.feature-icon svg {
+  color: white;
+}
+
+.feature h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--dark-text);
+}
+
+.feature p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--gray-text);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Stagger the animations for each feature */
+.feature:nth-child(1) { animation-delay: 0.1s; }
+.feature:nth-child(2) { animation-delay: 0.2s; }
+.feature:nth-child(3) { animation-delay: 0.3s; }
+
+@media (max-width: 768px) {
+  .feature-descriptions {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 0 1rem;
+    margin: 2rem auto;
+  }
+}
+
+/* Add these footer styles while keeping all existing styles */
+
+.footer {
+  margin-top: 4rem;
+  padding: 2rem 0;
+  border-top: 1px solid var(--light-gray);
+  background-color: var(--white);
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  text-align: center;
+}
+
+.footer-brand {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--dark-text);
+}
+
+.footer-brand span {
+  color: var(--primary-color);
+}
+
+.footer-copyright {
+  color: var(--gray-text);
+  font-size: 0.875rem;
+}
+
+@media (max-width: 768px) {
+  .footer {
+    margin-top: 2rem;
+    padding: 1.5rem 0;
+  }
+  
+  .footer-content {
+    padding: 0 1rem;
+  }
 }

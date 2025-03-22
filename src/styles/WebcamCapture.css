@@ -1,0 +1,74 @@
+.webcam-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.9);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.webcam-overlay {
+  position: relative;
+  width: 100%;
+  max-width: 720px;
+  margin: 0 1rem;
+}
+
+.webcam {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
+
+.webcam-controls {
+  position: absolute;
+  bottom: 2rem;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  padding: 0 1rem;
+}
+
+.capture-button, .close-button {
+  padding: 1rem 2rem;
+  border-radius: 100px;
+  border: none;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.capture-button {
+  background: var(--primary-color);
+  color: white;
+}
+
+.capture-button:hover {
+  background: #0066dd;
+}
+
+.close-button {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+.close-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+@media (max-width: 768px) {
+  .webcam-overlay {
+    margin: 0;
+  }
+  
+  .webcam {
+    border-radius: 0;
+  }
+}

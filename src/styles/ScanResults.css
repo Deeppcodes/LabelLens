@@ -1,0 +1,197 @@
+.analysis-results {
+  padding: 2rem;
+  min-height: 100vh;
+  background-color: var(--background);
+}
+
+.results-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.results-container h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--dark-text);
+  margin-bottom: 2rem;
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: none;
+  color: var(--dark-text);
+  border: none;
+  padding: 1rem 0;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: all 0.2s ease;
+}
+
+.back-button:hover {
+  opacity: 0.7;
+}
+
+.back-button svg {
+  width: 24px;
+  height: 24px;
+  stroke: var(--dark-text);
+  stroke-width: 2;
+}
+
+.image-preview {
+  margin: 2rem auto;
+  border-radius: var(--radius);
+  overflow: hidden;
+  width: 30%;
+  max-width: 400px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.image-preview img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.safety-score {
+  background-color: var(--primary-light);
+  padding: 1.5rem;
+  border-radius: var(--radius);
+  margin-bottom: 2rem;
+}
+
+.safety-score h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--dark-text);
+}
+
+.safety-score p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--gray-text);
+}
+
+.ingredients-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.ingredients-list h2 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: var(--dark-text);
+}
+
+.ingredient-item {
+  background: white;
+  padding: 1.5rem;
+  border-radius: var(--radius);
+  border: 1px solid #E5E7EB;
+}
+
+.ingredient-item.safe {
+  border-left: 6px solid #22c55e;
+}
+
+.ingredient-item.caution {
+  border-left: 6px solid #f59e0b;
+}
+
+.ingredient-item.beware {
+  border-left: 6px solid #ef4444;
+}
+
+.ingredient-header {
+  margin-bottom: 0.75rem;
+}
+
+.name-safety {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.ingredient-name-container {
+  display: flex;
+  align-items: center;
+}
+
+.clickable-ingredient {
+  cursor: pointer;
+  color: #2196F3;
+  transition: color 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.clickable-ingredient:hover {
+  color: #1976D2;
+  text-decoration: underline;
+}
+
+.safety-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 100px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.safe .safety-badge {
+  background-color: #dcfce7;
+  color: #16a34a;
+}
+
+.caution .safety-badge {
+  background-color: #fef3c7;
+  color: #d97706;
+}
+
+.beware .safety-badge {
+  background-color: #fee2e2;
+  color: #dc2626;
+}
+
+.ingredient-details p {
+  color: var(--gray-text);
+  line-height: 1.6;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .analysis-results {
+    padding: 1rem;
+  }
+
+  .image-preview {
+    width: 50%;
+  }
+
+  .results-container h1 {
+    font-size: 1.75rem;
+  }
+
+  .safety-score h2 {
+    font-size: 1.25rem;
+  }
+
+  .ingredients-list h2 {
+    font-size: 1.5rem;
+  }
+}
+
+
+
+
