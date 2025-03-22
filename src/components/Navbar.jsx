@@ -1,6 +1,13 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
+  const navigate = useNavigate();
+
+  const handleScanClick = () => {
+    navigate('/scan');
+  };
+
   return (
     <nav className="navbar">
       <div className="container">
@@ -14,13 +21,8 @@ const Navbar = () => {
             </button>
           </div>
           <div className="nav-item">
-            <button className="nav-button">
+            <button className="nav-button" onClick={handleScanClick}>
               <span>Scan</span>
-            </button>
-          </div>
-          <div className="nav-item">
-            <button className="nav-button">
-              <span>Ingredients</span>
             </button>
           </div>
           <div className="nav-item">

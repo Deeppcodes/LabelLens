@@ -39,9 +39,6 @@ const Hero = () => {
           Scan Label
           <span className="arrow">→</span>
         </button>
-        <button className="cta-button secondary">
-          Browse Ingredients
-        </button>
       </div>
     </div>
   );
