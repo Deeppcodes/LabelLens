@@ -9,7 +9,9 @@
 .search-results-header .search-container {
   width: 100%;}
 .search-results-content {
-  width: 100%;  max-width: 800px;
+  width: 100%;
+  max-width: 800px;
+  padding: 0 1rem;
 }
 .search-results-title {
   font-size: 1.5rem;  font-weight: 600;
@@ -29,138 +31,223 @@
   text-align: center;
 }
 
-.pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 2rem;
-  gap: 0.5rem;
+.analysis-results {
+  padding: 2rem 0;
 }
 
-.pagination-numbers {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
+.results-container {
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-.pagination-number {
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--white);
-  border: 1px solid #E5E7EB;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 0.875rem;
-  color: var(--dark-text);
-  transition: all 0.2s ease;
-}
-
-.pagination-number:hover:not(.active):not(:disabled) {
-  background-color: var(--light-gray);
-  border-color: #D1D5DB;
-}
-
-.pagination-number.active {
-  background-color: var(--primary-color);
-  border-color: var(--primary-color);
-  color: white;
-}
-
-.pagination-arrow {
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--white);
-  border: 1px solid #E5E7EB;
-  border-radius: 6px;
-  cursor: pointer;
-  color: var(--dark-text);
-  transition: all 0.2s ease;
-}
-
-.pagination-arrow:hover:not(:disabled) {
-  background-color: var(--light-gray);
-  border-color: #D1D5DB;
-}
-
-.pagination-arrow:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.pagination-ellipsis {
-  color: var(--gray-text);
-  padding: 0 4px;
-}
-
-.search-results-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 2rem;
-}
-
-.search-result-card {
-  background-color: var(--white);
-  border: 1px solid #E5E7EB;
+.safety-score {
+  background-color: var(--primary-light);
+  padding: 2rem;
   border-radius: var(--radius);
-  padding: 1.25rem;
-  transition: all 0.2s ease;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  margin-bottom: 2.5rem;
 }
 
-.search-result-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border-color: #D1D5DB;
+.safety-score h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--dark-text);
 }
 
-.result-header {
+.safety-score p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--gray-text);
+}
+
+.ingredients-list {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.ingredients-list h2 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: var(--dark-text);
+}
+
+.ingredient-item {
+  background: white;
+  border-radius: var(--radius);
+  padding: 1rem;
+  border: 1px solid #E5E7EB;
   margin-bottom: 1rem;
 }
 
-.result-header h3 {
-  font-size: 1.125rem;
-  font-weight: 600;
-  color: var(--dark-text);
-  margin-bottom: 0.25rem;
-  line-height: 1.4;
+.ingredient-item.safe {
+  border-left: 6px solid #22c55e;
 }
 
-.result-header .subtitle {
-  display: block;
+.ingredient-item.caution {
+  border-left: 6px solid #f59e0b;
+}
+
+.ingredient-item.beware {
+  border-left: 6px solid #ef4444;
+}
+
+.ingredient-header {
+  margin-bottom: 0.75rem;
+}
+
+.name-safety {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.name-safety h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--dark-text);
+}
+
+.safety-badge {
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  border-radius: 100px;
   font-size: 0.875rem;
-  color: var(--primary-color);
   font-weight: 500;
 }
 
-.result-details {
+.ingredient-details {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  font-size: 0.875rem;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
-.result-details .tag {
-  padding: 0.25rem 0.75rem;
-  border-radius: 1rem;
-  background-color: var(--light-gray);
+.detail-section {
+  color: var(--gray-text);
+  line-height: 1.5;
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+}
+
+.detail-dropdown {
+  border: 1px solid #E5E7EB;
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.detail-dropdown summary {
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.95rem;
+  background-color: #F9FAFB;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.detail-dropdown summary::after {
+  content: "›";
+  font-size: 1rem;
+  transform: rotate(90deg);
+  transition: transform 0.2s;
+}
+
+.detail-dropdown[open] summary::after {
+  transform: rotate(270deg);
+}
+
+.detail-dropdown summary:hover {
+  background-color: #F3F4F6;
+}
+
+.dropdown-content {
+  padding: 0.75rem;
+  background-color: white;
+  font-size: 0.95rem;
+}
+
+.dropdown-content ul {
+  list-style-type: disc;
+  margin-left: 1.25rem;
+  margin-bottom: 0;
+}
+
+.dropdown-content li {
+  margin-bottom: 0.25rem;
+}
+
+.dropdown-content p {
+  color: var(--gray-text);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Maintain the existing safety colors */
+.safe .safety-badge {
+  background-color: #dcfce7;
+  color: #16a34a;
+}
+
+.caution .safety-badge {
+  background-color: #fef3c7;
+  color: #d97706;
+}
+
+.beware .safety-badge {
+  background-color: #fee2e2;
+  color: #dc2626;
+}
+
+.analysis-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  padding: 2rem;
+}
+
+.analysis-loading h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 1rem 0;
+  color: var(--dark-text);
+}
+
+.analysis-loading p {
+  font-size: 1.1rem;
   color: var(--gray-text);
 }
 
-@media (max-width: 640px) {
-  .search-results-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
+.concerns-section {
+  margin-top: 0.75rem;
+}
 
-  .search-result-card {
-    padding: 1rem;
-  }
+.concerns-section h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--dark-text);
+}
+
+.concerns-section ul {
+  margin-left: 1.5rem;
+  color: var(--gray-text);
+}
+
+.concerns-section li {
+  margin-bottom: 0.25rem;
+}
+
+.clickable-ingredient {
+  cursor: pointer;
+  color: #2196F3;
+  transition: color 0.2s ease;
+}
+
+.clickable-ingredient:hover {
+  color: #1976D2;
+  text-decoration: underline;
 }
 
