@@ -9,7 +9,9 @@
 .search-results-header .search-container {
   width: 100%;}
 .search-results-content {
-  width: 100%;  max-width: 800px;
+  width: 100%;
+  max-width: 800px;
+  padding: 0 1rem;
 }
 .search-results-title {
   font-size: 1.5rem;  font-weight: 600;
@@ -29,29 +31,223 @@
   text-align: center;
 }
 
+.analysis-results {
+  padding: 2rem 0;
+}
 
+.results-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
 
+.safety-score {
+  background-color: var(--primary-light);
+  padding: 2rem;
+  border-radius: var(--radius);
+  margin-bottom: 2.5rem;
+}
 
+.safety-score h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--dark-text);
+}
 
+.safety-score p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--gray-text);
+}
 
+.ingredients-list {
+  display: grid;
+  gap: 1.5rem;
+}
 
+.ingredients-list h2 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: var(--dark-text);
+}
 
+.ingredient-item {
+  background: white;
+  border-radius: var(--radius);
+  padding: 1rem;
+  border: 1px solid #E5E7EB;
+  margin-bottom: 1rem;
+}
 
+.ingredient-item.safe {
+  border-left: 6px solid #22c55e;
+}
 
+.ingredient-item.caution {
+  border-left: 6px solid #f59e0b;
+}
 
+.ingredient-item.beware {
+  border-left: 6px solid #ef4444;
+}
 
+.ingredient-header {
+  margin-bottom: 0.75rem;
+}
 
+.name-safety {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
 
+.name-safety h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--dark-text);
+}
 
+.safety-badge {
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  border-radius: 100px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
 
+.ingredient-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
 
+.detail-section {
+  color: var(--gray-text);
+  line-height: 1.5;
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+}
 
+.detail-dropdown {
+  border: 1px solid #E5E7EB;
+  border-radius: var(--radius);
+  overflow: hidden;
+}
 
+.detail-dropdown summary {
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.95rem;
+  background-color: #F9FAFB;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
+.detail-dropdown summary::after {
+  content: "›";
+  font-size: 1rem;
+  transform: rotate(90deg);
+  transition: transform 0.2s;
+}
 
+.detail-dropdown[open] summary::after {
+  transform: rotate(270deg);
+}
 
+.detail-dropdown summary:hover {
+  background-color: #F3F4F6;
+}
 
+.dropdown-content {
+  padding: 0.75rem;
+  background-color: white;
+  font-size: 0.95rem;
+}
 
+.dropdown-content ul {
+  list-style-type: disc;
+  margin-left: 1.25rem;
+  margin-bottom: 0;
+}
 
+.dropdown-content li {
+  margin-bottom: 0.25rem;
+}
 
+.dropdown-content p {
+  color: var(--gray-text);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Maintain the existing safety colors */
+.safe .safety-badge {
+  background-color: #dcfce7;
+  color: #16a34a;
+}
+
+.caution .safety-badge {
+  background-color: #fef3c7;
+  color: #d97706;
+}
+
+.beware .safety-badge {
+  background-color: #fee2e2;
+  color: #dc2626;
+}
+
+.analysis-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  padding: 2rem;
+}
+
+.analysis-loading h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 1rem 0;
+  color: var(--dark-text);
+}
+
+.analysis-loading p {
+  font-size: 1.1rem;
+  color: var(--gray-text);
+}
+
+.concerns-section {
+  margin-top: 0.75rem;
+}
+
+.concerns-section h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--dark-text);
+}
+
+.concerns-section ul {
+  margin-left: 1.5rem;
+  color: var(--gray-text);
+}
+
+.concerns-section li {
+  margin-bottom: 0.25rem;
+}
+
+.clickable-ingredient {
+  cursor: pointer;
+  color: #2196F3;
+  transition: color 0.2s ease;
+}
+
+.clickable-ingredient:hover {
+  color: #1976D2;
+  text-decoration: underline;
+}
 

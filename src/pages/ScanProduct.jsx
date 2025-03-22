@@ -16,7 +16,7 @@ const ANALYSISPROMPT = `Analyze these skincare/medication ingredients and return
   "ingredients": [
     {
       "ingredient_name": "example",
-      "background": "[origin/history from PubChem/NIH]",
+      "background": "[Provide exactly 4 complete sentences: 1) What it is 2) Its main purpose/function 3) Key benefit or concern]",
       "usage": "[function]",
       "other_names": "synonyms",
       "side_effects": ["list"],
@@ -87,6 +87,23 @@ const ANALYSISPROMPT = `Analyze these skincare/medication ingredients and return
 
 Ingredients: `;
 
+const LinkIcon = () => (
+  <svg 
+    width="16" 
+    height="16" 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    stroke="currentColor" 
+    strokeWidth="2" 
+    strokeLinecap="round" 
+    strokeLinejoin="round"
+    style={{ marginLeft: '4px' }}
+  >
+    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+  </svg>
+);
+
 const ScanProduct = () => {
   const navigate = useNavigate();
   const fileInputRef = useRef(null);
@@ -118,6 +135,10 @@ const ScanProduct = () => {
     const response = await fetch(imageSrc);
     const blob = await response.blob();
     await analyzeImage(blob);
+  };
+
+  const handleIngredientClick = (ingredientName) => {
+    navigate(`/search?q=${encodeURIComponent(ingredientName)}&type=ingredient`);
   };
 
   const analyzeImage = async (imageData) => {
@@ -220,9 +241,25 @@ const ScanProduct = () => {
             <h2>Ingredients Analysis</h2>
             {analysis.ingredients.map((ingredient, index) => (
               <div key={index} className={`ingredient-item ${ingredient.safety.toLowerCase()}`}>
-                <h3>{ingredient.name}</h3>
-                <span className="safety-badge">{ingredient.safety}</span>
-                <p>{ingredient.description}</p>
+                <div className="ingredient-header">
+                  <div className="name-safety">
+                    <div className="ingredient-name-container">
+                      <h3 
+                        onClick={() => handleIngredientClick(ingredient.name)}
+                        className="clickable-ingredient"
+                      >
+                        {ingredient.name}
+                        <LinkIcon />
+                      </h3>
+                    </div>
+                    <span className="safety-badge">{ingredient.safety}</span>
+                  </div>
+                </div>
+                <div className="ingredient-details">
+                  <div className="detail-section">
+                    <p>{ingredient.description}</p>
+                  </div>
+                </div>
               </div>
             ))}
           </div>

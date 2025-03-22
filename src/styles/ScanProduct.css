@@ -216,14 +216,17 @@
 }
 
 .image-preview {
-  margin: 2rem 0;
+  margin: 2rem auto;
   border-radius: var(--radius);
   overflow: hidden;
+  width: 30%; /* Make container half width */
+  max-width: 400px; /* Add max-width for larger screens */
 }
 
 .image-preview img {
   width: 100%;
   height: auto;
+  display: block; /* Remove any potential spacing issues */
 }
 
 .safety-score {
@@ -279,6 +282,69 @@
 .unsafe .safety-badge {
   background-color: #fee2e2;
   color: #dc2626;
+}
+
+.ingredient-name-container {
+  display: flex;
+  align-items: center;
+}
+
+.clickable-ingredient {
+  cursor: pointer;
+  color: #2196F3;
+  transition: color 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.clickable-ingredient:hover {
+  color: #1976D2;
+  text-decoration: underline;
+}
+
+.clickable-ingredient svg {
+  width: 16px;
+  height: 16px;
+  opacity: 0.7;
+}
+
+.clickable-ingredient:hover svg {
+  opacity: 1;
+}
+
+.ingredient-details {
+  margin-top: 10px;
+}
+
+.detail-dropdown {
+  margin: 8px 0;
+}
+
+.detail-dropdown summary {
+  cursor: pointer;
+  color: #666;
+  font-weight: 500;
+}
+
+.detail-dropdown .dropdown-content {
+  padding: 8px 16px;
+  background: #f5f5f5;
+  border-radius: 4px;
+  margin-top: 4px;
+}
+
+.effects-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.effect-item {
+  background: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.9em;
 }
 
 

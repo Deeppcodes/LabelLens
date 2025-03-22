@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 
 const Hero = () => {
   const navigate = useNavigate();
-  const [searchType, setSearchType] = useState('products');
+  const [searchType, setSearchType] = useState('product');
   const [searchQuery, setSearchQuery] = useState('');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -30,8 +30,8 @@ const Hero = () => {
   }, []);
 
   const options = [
-    { value: 'products', label: 'Products' },
-    { value: 'ingredients', label: 'Ingredients' },
+    { value: 'product', label: 'Product' },
+    { value: 'ingredient', label: 'Ingredient' },
   ];
 
   return (
