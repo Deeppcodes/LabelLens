@@ -211,3 +211,23 @@ body {
 .arrow {
   font-size: 1.125rem;
 }
+
+.profile-notice {
+  background-color: var(--primary-light);
+  padding: 1rem;
+  border-radius: var(--radius);
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.profile-notice p {
+  color: var(--primary-color);
+  font-weight: 500;
+  margin: 0;
+}
+
+.profile-notice .coming-soon {
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  color: var(--gray-text);
+}
