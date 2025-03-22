@@ -23,6 +23,48 @@
   max-width: 600px;
 }
 
+.hero .search-container {
+  display: flex;
+  gap: 0.5rem;
+  max-width: 600px;
+  margin: 2rem auto;
+  width: 100%;
+}
+
+.hero .search-box {
+  display: flex;
+  align-items: center;
+  background: white;
+  border: 1px solid #E5E7EB;
+  border-radius: 8px;
+  padding: 0.5rem;
+  flex: 1;
+}
+
+.hero .search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  padding: 0.5rem;
+}
+
+.hero .search-button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  white-space: nowrap;
+}
+
+.hero .search-button:hover {
+  background-color: var(--primary-color-dark);
+}
+
 .scan-options {
   display: flex;
   flex-direction: column;
@@ -84,6 +126,42 @@
   margin-top: 1.5rem;
 }
 
+.detail-dropdown {
+  margin-top: 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.detail-dropdown summary {
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  user-select: none;
+  font-weight: 500;
+  background-color: #f9fafb;
+}
+
+.detail-dropdown summary:hover {
+  background-color: #f3f4f6;
+}
+
+.dropdown-content {
+  padding: 1rem;
+  background-color: white;
+}
+
+.effects-list, .concerns-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.effect-item, .concern-item {
+  padding: 0.5rem;
+  background-color: #f9fafb;
+  border-radius: var(--radius);
+}
+
 @media (max-width: 768px) {
   .hero h1 {
     font-size: 2rem;
@@ -96,4 +174,14 @@
   .scan-buttons {
     flex-direction: column;
   }
+
+  .hero .search-container {
+    flex-direction: column;
+    padding: 0 1rem;
+  }
+
+  .hero .search-button {
+    width: 100%;
+  }
 }
+

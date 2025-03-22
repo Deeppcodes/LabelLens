@@ -1,8 +1,9 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/MainSearch.css';
 import WebcamCapture from '../components/WebcamCapture';
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { Link } from 'react-router-dom';
 
 const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GOOGLE_API_KEY);
 const OCRPROMPT = "return the ingredients displayed in the image as a list in this exact format, do not add any other text, and show ALL ingredients, not only other ingredients, list each ingredient as a seperate item: [item1name, item2name, item3name]";
@@ -40,13 +41,29 @@ const MainSearch = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [showWebcam, setShowWebcam] = useState(false);
   const [analyzing, setAnalyzing] = useState(false);
+  const [searchType, setSearchType] = useState('product');
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      navigate(`/search?q=${encodeURIComponent(searchQuery)}&type=product`);
+      navigate(`/search?q=${encodeURIComponent(searchQuery)}&type=${searchType}`);
     }
   };
+
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setIsDropdownOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   const handleUploadClick = () => {
     fileInputRef.current.click();
@@ -165,9 +182,13 @@ const MainSearch = () => {
       </h1>
       
       <p className="description">
-        Upload images of ingredient lists or search for specific ingredients to get detailed information and personalized safety analysis.
+        Upload images of ingredient lists or search for specific ingredients to get detailed information and personalized safety analysis
       </p>
 
+      <p className="description font-bold profile-prompt">
+        <Link to="/profile" className="profile-link">Create your profile</Link> to get personalized analysis based on your allergies and medical conditions!
+      </p>
+      
       <div className="tabs">
         <button 
           className={`tab ${activeTab === 'scan' ? 'active' : ''}`}
@@ -203,7 +224,7 @@ const MainSearch = () => {
                   <h2 className="upload-title">Upload a photo of ingredients</h2>
                   
                   <p className="upload-instruction">
-                    Take a clear photo of the ingredients list on your skincare product packaging
+                    Take a clear photo of the ingredients list on your product packaging
                   </p>
                   
                   <div className="upload-buttons">
@@ -237,26 +258,115 @@ const MainSearch = () => {
 
         {activeTab === 'search' && (
           <div className="search-section">
-            <form onSubmit={handleSearch}>
+            
+            <form onSubmit={handleSearch} className="search-container">
               <div className="search-box">
                 <input 
                   type="text" 
-                  placeholder="Search for a product..."
+                  placeholder={`Search ${searchType}...`}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="search-input"
                 />
-                <button type="submit" className="search-button">Search</button>
+                <div className="search-type-wrapper" ref={dropdownRef}>
+                  <button 
+                    type="button"
+                    className="custom-select"
+                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                  >
+                    {searchType === 'product' ? 'Product' : 'Ingredient'}
+                    <svg 
+                      className={`dropdown-icon ${isDropdownOpen ? 'open' : ''}`}
+                      width="12" 
+                      height="12" 
+                      viewBox="0 0 12 12"
+                      fill="none" 
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path 
+                        d="M2.5 4.5L6 8L9.5 4.5" 
+                        stroke="currentColor" 
+                        strokeWidth="1.5" 
+                        strokeLinecap="round" 
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </button>
+                  {isDropdownOpen && (
+                    <div className="custom-select-options">
+                      <button
+                        type="button"
+                        className={`option ${searchType === 'product' ? 'selected' : ''}`}
+                        onClick={() => {
+                          setSearchType('product');
+                          setIsDropdownOpen(false);
+                        }}
+                      >
+                        Product
+                      </button>
+                      <button
+                        type="button"
+                        className={`option ${searchType === 'ingredient' ? 'selected' : ''}`}
+                        onClick={() => {
+                          setSearchType('ingredient');
+                          setIsDropdownOpen(false);
+                        }}
+                      >
+                        Ingredient
+                      </button>
+                    </div>
+                  )}
+                </div>
               </div>
+              <button type="submit" className="search-button">Search</button>
             </form>
           </div>
         )}
+      </div>
+
+      <div className="feature-descriptions">
+        <div className="feature">
+          <div className="feature-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M22 6l-10 7L2 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </div>
+          <h2>Scan and Analyze</h2>
+          <p>Upload product images or take photos directly to instantly analyze ingredients and get detailed safety information.</p>
+        </div>
+        <div className="feature">
+          <div className="feature-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 6V19M12 6L7 11M12 6L17 11" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </div>
+          <h2>Comprehensive Database</h2>
+          <p>Access our extensive database of ingredients, including potential side effects, common uses, and safety ratings.</p>
+        </div>
+        <div className="feature">
+          <div className="feature-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </div>
+          <h2>Personalized Safety</h2>
+          <p>Get customized analysis based on your specific allergies, conditions, and sensitivities for safer product choices.</p>
+        </div>
       </div>
     </div>
   );
 };
 
 export default MainSearch;
+
+
+
+
+
+
+
+
 
 
 

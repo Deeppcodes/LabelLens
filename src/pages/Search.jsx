@@ -77,15 +77,8 @@ const Search = () => {
   const dropdownRef = useRef(null);
 
   const handleSearch = () => {
-    if (searchQuery.trim()) {
-      navigate(`/search?q=${encodeURIComponent(searchQuery)}&type=${searchType}`);
-      // After navigation, trigger the analysis
-      if (searchType === 'ingredient') {
-        analyzeIngredients(searchQuery);
-      } else if (searchType === 'product') {
-        analyzeProduct(searchQuery);
-      }
-    }
+    // Update the URL with the correct search type
+    navigate(`/search?q=${encodeURIComponent(searchQuery)}&type=${searchType}`);
   };
 
   const handleClickOutside = (event) => {
@@ -235,9 +228,9 @@ const Search = () => {
   };
 
   return (
-    <div className="search-page-wrapper">
-      <div className="search-results-page">
-        <div className="search-results-header">
+    <div className="search-page">
+      <div className="search-header">
+        <div className="search-bar-container">
           <div className="search-container">
             <div className="search-box">
               <input 
@@ -299,11 +292,8 @@ const Search = () => {
           {analyzing && (
             <div className="analysis-loading">
               <div className="spinner"></div>
-              <h2>Analyzing Ingredients</h2>
-              <p>Checking safety and compatibility...</p>
-              <div className="analysis-progress">
-                This usually takes about 15-20 seconds
-              </div>
+              <h2>Analyzing ingredient(s)...</h2>
+              <p>This may take a few moments</p>
             </div>
           )}
 
