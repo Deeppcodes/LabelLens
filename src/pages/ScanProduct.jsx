@@ -2,6 +2,80 @@ import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import WebcamCapture from '../components/WebcamCapture';
 import '../styles/ScanProduct.css';
+import { GoogleGenerativeAI } from "@google/generative-ai";
+import fs from "fs";
+
+const genAI = new GoogleGenerativeAI('AIzaSyB25o3qeXESYDlOVMBKdM-xFEbZaUZjwGc');
+
+const OCRPROMPT = "return the ingredients displayed in the image as a list in this exact format: [item1name, item2name, item3name]";
+
+const ANALYSISPROMPT = `Analyze these skincare/medication ingredients and return JSON with:
+{
+  "ingredients": [
+    {
+      "ingredient_name": "example",
+      "background": "[origin/history from PubChem/NIH]",
+      "usage": "[function]",
+      "other_names": "synonyms",
+      "side_effects": ["list"],
+      "concerns": ["bans/warnings"],
+      "safe": "safe/caution"
+    }
+  ],
+  "overallSafety": "Safe/Low Risk/Moderate/High Risk",
+  "recommendations": "Tailored advice based on risks"
+}
+
+**Rules for overallSafety**:
+1. **High Risk** if:
+   - Any ingredient is banned in EU/US/Japan
+   - Contains carcinogens, endocrine disruptors, or severe allergens (e.g., formaldehyde)
+2. **Moderate Risk** if:
+   - Contains regionally restricted ingredients (e.g., phenoxyethanol limited to 1% in EU)
+   - 1+ severe allergen (e.g., methylisothiazolinone)
+3. **Low Risk** if:
+   - 2+ minor cautions (e.g., drying alcohols, fragrance allergens)
+4. **Safe** if:
+   - No banned/restricted ingredients
+   - ≤1 minor caution
+
+**Recommendations must**:
+- Mention specific banned/risky ingredients
+- Suggest alternatives for High/Moderate risks
+- Example: 'Avoid: Contains EU-banned hydroquinone'
+
+**Prioritize data from**:
+- Bans: EU CosIng, FDA Prohibited List
+- Toxicity: NIH HSDB, IARC
+- Allergens: EWG Skin Deep
+
+**Example Output**:
+{
+  "ingredients": [
+    {
+      "ingredient_name": "Phenoxyethanol",
+      "background": "Synthetic preservative developed in the 1950s...",
+      "usage": "Antimicrobial agent",
+      "other_names": "EGPE, Rose Ether",
+      "side_effects": ["Skin irritation at >1%"],
+      "concerns": ["Restricted to 1% in EU"],
+      "safe": "caution"
+    },
+    {
+      "ingredient_name": "Retinol",
+      "background": "Vitamin A derivative first synthesized in 1947...",
+      "usage": "Anti-aging",
+      "other_names": "Vitamin A alcohol",
+      "side_effects": ["Dryness", "Photosensitivity"],
+      "concerns": ["Not recommended during pregnancy"],
+      "safe": "caution"
+    }
+  ],
+  "overallSafety": "Moderate",
+  "recommendations": "Contains 2 cautionary ingredients. Phenoxyethanol is restricted in the EU; retinol may cause irritation. Consult a dermatologist."
+}
+
+Ingredients: `;
 
 const ScanProduct = () => {
   const navigate = useNavigate();
@@ -39,19 +113,59 @@ const ScanProduct = () => {
   const analyzeImage = async (imageData) => {
     setAnalyzing(true);
     try {
-      // Simulate API call to analyze image
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      // Mock analysis result
-      setAnalysis({
-        ingredients: [
-          { name: 'Water', safety: 'Safe', description: 'Common base ingredient' },
-          { name: 'Glycerin', safety: 'Safe', description: 'Moisturizing agent' },
-          { name: 'Fragrance', safety: 'Caution', description: 'Potential allergen' }
-        ],
-        overallSafety: 'Moderate',
-        recommendations: 'This product contains mostly safe ingredients with one potential allergen.'
-      });
+      const reader = new FileReader();
+      reader.onloadend = async () => {
+        const base64data = reader.result.split(',')[1];
+        const imagePart = {
+          inlineData: {
+            data: base64data,
+            mimeType: imageData.type,
+          },
+        };
+
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
+        const prompt = OCRPROMPT;
+
+        try {
+          const ocr = await model.generateContent([prompt, imagePart]);
+          const ingredients = ocr.response.text();
+          console.log(ingredients);
+
+          const analyze = await model.generateContent([ANALYSISPROMPT + ingredients]);
+          const analyzeResponse = await analyze.response.text();
+          console.log(analyzeResponse);
+
+          let parsedResponse;
+          try {
+            const cleanJson = analyzeResponse
+              .replace(/^```json?\n|\n```$/g, '')  // Remove starting/ending backticks and 'json'```
+              .trim();
+
+            parsedResponse = JSON.parse(cleanJson.trim());
+          } catch (error) {
+            console.error("Failed to parse JSON:", error, analyzeResponse);
+            return;
+          }
+
+          const formattedAnalysis = {
+            ingredients: parsedResponse.ingredients.map(ingredient => ({
+              name: ingredient.ingredient_name,
+              safety: ingredient.safe.charAt(0).toUpperCase() + ingredient.safe.slice(1),
+              description: `${ingredient.usage} ${ingredient.background}`,
+              otherNames: ingredient.other_names,
+              sideEffects: ingredient.side_effects,
+              concerns: ingredient.concerns,
+            })),
+            overallSafety: parsedResponse.overallSafety,
+            recommendations: parsedResponse.recommendations,
+          };
+
+          setAnalysis(formattedAnalysis);
+        } catch (error) {
+          console.error("Error during API calls:", error);
+        }
+      };
+      reader.readAsDataURL(imageData);
     } catch (error) {
       console.error('Analysis failed:', error);
     } finally {
