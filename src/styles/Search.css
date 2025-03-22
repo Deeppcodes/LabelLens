@@ -1,0 +1,57 @@
+.search-results-page {
+  padding: 2rem 1rem;  min-height: calc(100vh - 70px); /* Subtract navbar height */
+  display: flex;  flex-direction: column;
+  align-items: center;
+}
+.search-results-header {
+  width: 100%;  max-width: 800px;
+  margin-bottom: 2rem;}
+.search-results-header .search-container {
+  width: 100%;}
+.search-results-content {
+  width: 100%;  max-width: 800px;
+}
+.search-results-title {
+  font-size: 1.5rem;  font-weight: 600;
+  color: var(--dark-text);  margin-bottom: 1.5rem;
+}
+/* Ensure search box styles are consistent */.search-container {
+  display: flex;  width: 100%;
+  gap: 0.5rem;}
+.search-box {
+  display: flex;  align-items: center;
+  flex: 1;  background-color: var(--white);
+  border: 1px solid #E5E7EB;  border-radius: var(--radius);
+  padding: 0.75rem 1rem;}
+/* Add styles for when there are no results */
+.no-results {  margin-top: 2rem;
+  color: var(--gray-text);
+  text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
