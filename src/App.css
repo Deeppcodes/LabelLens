@@ -1,42 +1,213 @@
-#root {
-  max-width: 1280px;
+/* App.css - General Styles */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --primary-color: #0077FF;
+  --primary-light: #E6F2FF;
+  --dark-text: #111827;
+  --gray-text: #6B7280;
+  --light-gray: #F3F4F6;
+  --white: #FFFFFF;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --radius: 8px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  color: var(--dark-text);
+  background-color: var(--white);
+}
+
+.App {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 0 1rem;
+}
+
+.main-content {
+  padding: 2rem 1rem;
+}
+
+/* Navbar Styles */
+.navbar {
+  width: 100%;
+  height: 70px;
+  border-bottom: 1px solid #E5E7EB;
+  background-color: var(--white);
+  box-shadow: var(--shadow);
+}
+
+.navbar .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+
+.logo-text {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.nav-items {
+  display: flex;
+  gap: 1rem;
+}
+
+.nav-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius);
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  color: var(--dark-text);
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.nav-button:hover {
+  background-color: var(--light-gray);
+}
+
+.nav-button:first-child {
+  background-color: var(--primary-light);
+  color: var(--primary-color);
+}
+
+/* Hero Styles */
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
+  padding: 3rem 1rem;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.transparency-badge {
+  background-color: var(--primary-light);
+  color: var(--primary-color);
+  padding: 0.5rem 1rem;
+  border-radius: 100px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 2rem;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.hero-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.hero-title .highlight {
+  color: var(--primary-color);
 }
 
-.card {
-  padding: 2em;
+.hero-description {
+  font-size: 1.125rem;
+  color: var(--gray-text);
+  margin-bottom: 2.5rem;
+  max-width: 600px;
 }
 
-.read-the-docs {
-  color: #888;
+.search-container {
+  display: flex;
+  width: 100%;
+  max-width: 700px;
+  margin-bottom: 2rem;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  background-color: var(--white);
+  border: 1px solid #E5E7EB;
+  border-radius: var(--radius);
+  padding: 0.75rem 1rem;
+  margin-right: 0.5rem;
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  padding: 0;
+}
+
+.search-button {
+  background-color: var(--primary-color);
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius);
+  padding: 0 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.search-button:hover {
+  background-color: #0062cc;
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.cta-button {
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius);
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s;
+}
+
+.cta-button.primary {
+  background-color: var(--primary-color);
+  color: var(--white);
+  border: none;
+}
+
+.cta-button.primary:hover {
+  background-color: #0062cc;
+}
+
+.cta-button.secondary {
+  background-color: var(--white);
+  color: var(--dark-text);
+  border: 1px solid #E5E7EB;
+}
+
+.cta-button.secondary:hover {
+  background-color: var(--light-gray);
+}
+
+.arrow {
+  font-size: 1.125rem;
 }
