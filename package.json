@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.24.0",
     "@heroicons/react": "^2.2.0",
     "@tailwindcss/vite": "^4.0.15",
     "framer-motion": "^11.18.2",
@@ -32,5 +33,3 @@
     "vite": "^6.2.0"
   }
 }
-
-
