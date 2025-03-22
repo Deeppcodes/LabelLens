@@ -4,6 +4,7 @@ import './App.css';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import ScanProduct from './pages/ScanProduct';
+import Profile from './pages/Profile';
 
 const AppContent = () => {
   const location = useLocation();
@@ -16,6 +17,7 @@ const AppContent = () => {
         <Routes>
           <Route path="/" element={<Hero />} />
           <Route path="/scan" element={<ScanProduct />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       </div>
     </div>
