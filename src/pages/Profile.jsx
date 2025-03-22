@@ -55,26 +55,12 @@ const Profile = () => {
 
   return (
     <div className="profile-container">
-      <div className="profile-header">
-        <div className="profile-icon">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="1.5"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
-            />
-          </svg>
-        </div>
-      </div>
-
-      <div className="profile-sections">
-        <div className="profile-section">
+      <h1 className="profile-title">Your Profile</h1>
+      <p className="profile-subtitle">
+        Set up your profile with your allergies and medical history for personalized ingredient analysis
+      </p>
+      <div className="profile-section">
+        <div className="section-group">
           <h2>Allergies</h2>
           <form onSubmit={handleAddAllergy} className="input-container">
             <input
@@ -117,7 +103,7 @@ const Profile = () => {
           </div>
         </div>
 
-        <div className="profile-section">
+        <div className="section-group">
           <h2>Medical History</h2>
           <form onSubmit={handleAddMedical} className="input-container">
             <input

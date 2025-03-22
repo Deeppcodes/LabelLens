@@ -36,14 +36,12 @@ const Hero = () => {
 
   return (
     <div className="hero">
-      <div className="transparency-badge">Label Intelligence</div>
-      
       <h1 className="hero-title">
         Understand What's In Your <span className="highlight">Products</span>
       </h1>
       
       <p className="hero-description">
-        Analyze ingredients, scan labels, and make informed decisions about what's in your products.
+        Upload images of ingredient lists or search for specific ingredients to get detailed information and personalized safety analysis.
       </p>
 
       <div className="profile-notice">
