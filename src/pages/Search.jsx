@@ -3,7 +3,7 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import '../styles/Search.css';
 
-const genAI = new GoogleGenerativeAI('AIzaSyA_aflW4puinlv-NCOnkYeR5QyTsBdfBTA');
+const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GOOGLE_API_KEY);
 
 const ANALYSISPROMPT = `Analyze these skincare/medication ingredients and return JSON with:
 {
