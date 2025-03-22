@@ -4,7 +4,7 @@ import '../styles/MainSearch.css';
 import WebcamCapture from '../components/WebcamCapture';
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-const genAI = new GoogleGenerativeAI('AIzaSyA_aflW4puinlv-NCOnkYeR5QyTsBdfBTA');
+const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GOOGLE_API_KEY);
 const OCRPROMPT = "return the ingredients displayed in the image as a list in this exact format, do not add any other text, and show ALL ingredients, not only other ingredients, list each ingredient as a seperate item: [item1name, item2name, item3name]";
 
 const ANALYSISPROMPT = `Analyze these skincare/medication ingredients and return JSON with:
