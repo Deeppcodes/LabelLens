@@ -7,7 +7,7 @@ const ScanProduct = () => {
       <h1 className="scan-title">Scan Label</h1>
       
       <p className="scan-description">
-        Upload a photo or scan your product's label to analyze what's in it.
+        Upload a photo or scan your skincare product's ingredient list to analyze what's in it.
       </p>
       
       <div className="upload-container">
@@ -18,10 +18,10 @@ const ScanProduct = () => {
             </svg>
           </div>
           
-          <h2 className="upload-title">Upload a photo of label</h2>
+          <h2 className="upload-title">Upload a photo of ingredients</h2>
           
           <p className="upload-instruction">
-            Take a clear photo of the ingredients list on your product's label
+            Take a clear photo of the ingredients list on your skincare product packaging
           </p>
           
           <div className="upload-buttons">

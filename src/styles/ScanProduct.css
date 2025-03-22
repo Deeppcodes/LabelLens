@@ -4,29 +4,29 @@
     margin: 0 auto;
     padding: 1.5rem 1rem;
     text-align: center;
-  }
-  
-  .scan-title {
+}
+
+.scan-title {
     font-size: 2.25rem;
     font-weight: 700;
     color: var(--dark-text);
     margin-bottom: 1rem;
-  }
-  
-  .scan-description {
+}
+
+.scan-description {
     font-size: 1.125rem;
     color: var(--gray-text);
     max-width: 600px;
     margin: 0 auto 2rem;
-  }
-  
-  .upload-container {
+}
+
+.upload-container {
     width: 100%;
     margin: 0 auto;
     max-width: 700px;
-  }
-  
-  .upload-area {
+}
+
+.upload-area {
     background-color: var(--white);
     border: 2px dashed #E5E7EB;
     border-radius: var(--radius);
@@ -36,9 +36,9 @@
     align-items: center;
     justify-content: center;
     min-height: 300px;
-  }
-  
-  .upload-icon {
+}
+
+.upload-icon {
     margin-bottom: 1.5rem;
     display: flex;
     justify-content: center;
@@ -47,25 +47,25 @@
     height: 64px;
     border-radius: 50%;
     background-color: var(--primary-light);
-  }
-  
-  .upload-title {
+}
+
+.upload-title {
     font-size: 1.25rem;
     font-weight: 600;
     margin-bottom: 0.75rem;
-  }
-  
-  .upload-instruction {
+}
+
+.upload-instruction {
     color: var(--gray-text);
     margin-bottom: 2rem;
-  }
-  
-  .upload-buttons {
+}
+
+.upload-buttons {
     display: flex;
     gap: 1rem;
-  }
-  
-  .upload-button, .photo-button {
+}
+
+.upload-button, .photo-button {
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -75,24 +75,24 @@
     font-size: 0.875rem;
     cursor: pointer;
     transition: all 0.2s;
-  }
-  
-  .upload-button {
+}
+
+.upload-button {
     background-color: var(--white);
     color: var(--dark-text);
     border: 1px solid #E5E7EB;
-  }
-  
-  .upload-button:hover {
+}
+
+.upload-button:hover {
     background-color: var(--light-gray);
-  }
-  
-  .photo-button {
+}
+
+.photo-button {
     background-color: var(--white);
     color: var(--dark-text);
     border: 1px solid #E5E7EB;
-  }
-  
-  .photo-button:hover {
+}
+
+.photo-button:hover {
     background-color: var(--light-gray);
-  }
+}

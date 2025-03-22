@@ -1,6 +1,13 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Hero = () => {
+  const navigate = useNavigate();
+
+  const handleScanClick = () => {
+    navigate('/scan');
+  };
+
   return (
     <div className="hero">
       <div className="transparency-badge">Label Intelligence</div>
@@ -25,7 +32,10 @@ const Hero = () => {
       </div>
       
       <div className="cta-buttons">
-        <button className="cta-button primary">
+        <button 
+          className="cta-button primary"
+          onClick={handleScanClick}
+        >
           Scan Label
           <span className="arrow">→</span>
         </button>
