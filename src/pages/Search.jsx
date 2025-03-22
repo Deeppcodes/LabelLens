@@ -115,10 +115,11 @@ const Search = () => {
   const analyzeIngredients = async (ingredients) => {
     setAnalyzing(true);
     try {
-      const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
       
       // Format single ingredient as a list for consistency
       const formattedIngredients = ingredients.includes(',') ? 
+
         ingredients : 
         `[${ingredients}]`;
       
@@ -164,7 +165,7 @@ const Search = () => {
   const analyzeProduct = async (productName) => {
     setAnalyzing(true);
     try {
-      const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
       
       // First, get ingredients list
       const extractIngredients = await model.generateContent(PRODUCTPROMPT + productName);
