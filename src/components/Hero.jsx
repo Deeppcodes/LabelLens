@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const Hero = () => {
   const navigate = useNavigate();
@@ -47,7 +47,9 @@ const Hero = () => {
       </p>
 
       <div className="profile-notice">
-        <p>Create your profile to get personalized product recommendations!</p>
+        <p>
+          <Link to="/profile" style={{ color: 'var(--primary-color)' }}>Create your profile</Link> to get personalized product recommendations!
+        </p>
       </div>
       
       <div className="search-container">

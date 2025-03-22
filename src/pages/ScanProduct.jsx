@@ -116,67 +116,61 @@ const ScanProduct = () => {
 
   const analyzeImage = async (imageData) => {
     setAnalyzing(true);
+    
     try {
-      const reader = new FileReader();
-      reader.onloadend = async () => {
-        const base64data = reader.result.split(',')[1];
-        const imagePart = {
-          inlineData: {
-            data: base64data,
-            mimeType: imageData.type,
-          },
-        };
+      const base64data = await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result.split(',')[1]);
+        reader.onerror = reject;
+        reader.readAsDataURL(imageData);
+      });
 
-        const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
-        const prompt = OCRPROMPT;
-
-        try {
-          const ocr = await model.generateContent([prompt, imagePart]);
-          const ingredients = ocr.response.text();
-          console.log(ingredients);
-
-          let prompt2 = '';
-          if (localStorage.getItem("allergies"))
-            prompt2 += PROFILEALLERGIES + localStorage.getItem("allergies")
-          if (localStorage.getItem("conditions"))
-            prompt2 += PROFILECONDITIONS + localStorage.getItem("conditions")
-          prompt2  += ANALYSISPROMPT + ingredients;
-          const analyze = await model.generateContent([prompt2]);
-          const analyzeResponse = await analyze.response.text();
-          console.log(analyzeResponse);
-
-          var cleanJson = analyzeResponse
-              .replace(/^```json/, '')
-              .replace(/```[\s\S]*$/, '')  // Remove starting/ending backticks and 'json'```
-              .trim();
-
-          let parsedResponse;
-          try {
-            parsedResponse = JSON.parse(cleanJson.trim());
-          } catch (error) {
-            console.error("Failed to parse JSON:", error, cleanJson);
-            return;
-          }
-
-          const formattedAnalysis = {
-            ingredients: parsedResponse.ingredients.map(ingredient => ({
-              name: ingredient.ingredient_name,
-              safety: ingredient.safe.charAt(0).toUpperCase() + ingredient.safe.slice(1),
-              description: ingredient.background,
-              otherNames: ingredient.other_names,
-              sideEffects: ingredient.side_effects,
-              concerns: ingredient.concerns,
-            })),
-            overallSafety: parsedResponse.overallSafety,
-            recommendations: parsedResponse.recommendations,
-          };
-
-          setAnalysis(formattedAnalysis);
-        } catch (error) {
-          console.error("Error during API calls:", error);
-        }
+      const imagePart = {
+        inlineData: {
+          data: base64data,
+          mimeType: imageData.type,
+        },
       };
-      reader.readAsDataURL(imageData);
+
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
+      const prompt = OCRPROMPT;
+
+      const ocr = await model.generateContent([prompt, imagePart]);
+      const ingredients = ocr.response.text();
+      console.log(ingredients);
+
+      let prompt2 = '';
+      if (localStorage.getItem("allergies"))
+        prompt2 += PROFILEALLERGIES + localStorage.getItem("allergies")
+      if (localStorage.getItem("conditions"))
+        prompt2 += PROFILECONDITIONS + localStorage.getItem("conditions")
+      prompt2 += ANALYSISPROMPT + ingredients;
+      
+      const analyze = await model.generateContent([prompt2]);
+      const analyzeResponse = await analyze.response.text();
+      console.log(analyzeResponse);
+
+      var cleanJson = analyzeResponse
+        .replace(/^```json/, '')
+        .replace(/```[\s\S]*$/, '')
+        .trim();
+
+      let parsedResponse = JSON.parse(cleanJson.trim());
+
+      const formattedAnalysis = {
+        ingredients: parsedResponse.ingredients.map(ingredient => ({
+          name: ingredient.ingredient_name,
+          safety: ingredient.safe.charAt(0).toUpperCase() + ingredient.safe.slice(1),
+          description: ingredient.background,
+          otherNames: ingredient.other_names,
+          sideEffects: ingredient.side_effects,
+          concerns: ingredient.concerns,
+        })),
+        overallSafety: parsedResponse.overallSafety,
+        recommendations: parsedResponse.recommendations,
+      };
+
+      setAnalysis(formattedAnalysis);
     } catch (error) {
       console.error('Analysis failed:', error);
     } finally {
