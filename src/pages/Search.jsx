@@ -253,8 +253,133 @@ const Search = ({ onProductSelect }) => {
   ];
 
   useEffect(() => {
-    setCurrentPage(1);
-  }, [query, searchType]);
+    console.log('Search params changed:', { query, type });
+    if (query) {
+      if (type === 'ingredient') {
+        console.log('Analyzing ingredient:', query);
+        analyzeIngredients(query);
+      } else if (type === 'product') {
+        console.log('Analyzing product:', query);
+        analyzeProduct(query);
+      }
+    }
+  }, [query, type]);
+
+  const analyzeIngredients = async (ingredients) => {
+    setAnalyzing(true);
+    try {
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
+      
+      // Format single ingredient as a list for consistency
+      const formattedIngredients = ingredients.includes(',') ? 
+
+        ingredients : 
+        `[${ingredients}]`;
+      
+      let prompt = '';
+      if (localStorage.getItem("allergies"))
+        prompt += `Given that the user has these allergies ${localStorage.getItem("allergies")} `;
+      if (localStorage.getItem("conditions"))
+        prompt += `and these conditions ${localStorage.getItem("conditions")} `;
+      prompt += ANALYSISPROMPT + formattedIngredients;
+
+      const analyze = await model.generateContent([prompt]);
+      const analyzeResponse = await analyze.response.text();
+      
+      var cleanJson = analyzeResponse
+        .replace(/^```json/, '')
+        .replace(/```[\s\S]*$/, '')
+        .trim();
+
+      let parsedResponse = JSON.parse(cleanJson.trim());
+
+      const formattedAnalysis = {
+        ingredients: parsedResponse.ingredients.map(ingredient => ({
+          name: ingredient.ingredient_name,
+          safety: ingredient.safe.charAt(0).toUpperCase() + ingredient.safe.slice(1),
+          description: ingredient.background,
+          otherNames: ingredient.other_names,
+          sideEffects: ingredient.side_effects,
+          concerns: ingredient.concerns,
+          usage: ingredient.usage
+        })),
+        overallSafety: parsedResponse.overallSafety,
+        recommendations: parsedResponse.recommendations,
+      };
+
+      setSearchResults(formattedAnalysis);
+    } catch (error) {
+      console.error('Analysis failed:', error);
+    } finally {
+      setAnalyzing(false);
+    }
+  };
+
+  const analyzeProduct = async (productName) => {
+    setAnalyzing(true);
+    try {
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
+      
+      // First, get ingredients list
+      const extractIngredients = await model.generateContent(PRODUCTPROMPT + productName);
+      const ingredientsResponse = await extractIngredients.response.text();
+      
+      // Clean up ingredients list
+      const ingredients = ingredientsResponse
+        .replace(/[\[\]"']/g, '') // Remove brackets and quotes
+        .split(',')
+        .map(i => i.trim())
+        .filter(i => i && i.length > 1)
+        .join(', ');
+      
+      if (!ingredients) {
+        throw new Error('No ingredients found for this product');
+      }
+
+      // Analyze ingredients
+      let prompt = ANALYSISPROMPT + ingredients;
+      if (localStorage.getItem("allergies")) {
+        prompt = `Given that the user has these allergies ${localStorage.getItem("allergies")} ` + prompt;
+      }
+      if (localStorage.getItem("conditions")) {
+        prompt = `and these conditions ${localStorage.getItem("conditions")} ` + prompt;
+      }
+
+      const analyze = await model.generateContent(prompt);
+      const analyzeResponse = await analyze.response.text();
+      
+      // Parse and clean the JSON response
+      const cleanJson = analyzeResponse
+        .replace(/^```json\s*/, '')
+        .replace(/\s*```$/, '')
+        .trim();
+
+      const parsedResponse = JSON.parse(cleanJson);
+
+      setSearchResults({
+        ingredients: parsedResponse.ingredients.map(ingredient => ({
+          name: ingredient.ingredient_name,
+          safety: ingredient.safe.charAt(0).toUpperCase() + ingredient.safe.slice(1),
+          description: ingredient.background,
+          otherNames: ingredient.other_names,
+          sideEffects: ingredient.side_effects,
+          concerns: ingredient.concerns,
+          usage: ingredient.usage
+        })),
+        overallSafety: parsedResponse.overallSafety,
+        recommendations: parsedResponse.recommendations,
+      });
+    } catch (error) {
+      console.error('Product analysis failed:', error);
+      setSearchResults(null);
+    } finally {
+      setAnalyzing(false);
+    }
+  };
+
+  const handleIngredientClick = (ingredientName) => {
+    navigate(`/search?q=${encodeURIComponent(ingredientName)}&type=ingredient`);
+  };
 
   return (
     <div className="search-page-wrapper">
