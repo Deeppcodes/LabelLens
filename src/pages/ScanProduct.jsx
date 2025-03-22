@@ -5,10 +5,12 @@ import '../styles/ScanProduct.css';
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import fs from "fs";
 
-const genAI = new GoogleGenerativeAI('AIzaSyB25o3qeXESYDlOVMBKdM-xFEbZaUZjwGc');
+const genAI = new GoogleGenerativeAI('AIzaSyA_aflW4puinlv-NCOnkYeR5QyTsBdfBTA');
 
-const OCRPROMPT = "return the ingredients displayed in the image as a list in this exact format: [item1name, item2name, item3name]";
+const OCRPROMPT = "return the ingredients displayed in the image as a list in this exact format, do not add any other text, and show ALL ingredients, not only other ingredients: [item1name, item2name, item3name]";
 
+const PROFILEALLERGIES = `Given that the user has these allergies `
+const PROFILECONDITIONS = `and these conditions `
 const ANALYSISPROMPT = `Analyze these skincare/medication ingredients and return JSON with:
 {
   "ingredients": [
@@ -18,8 +20,8 @@ const ANALYSISPROMPT = `Analyze these skincare/medication ingredients and return
       "usage": "[function]",
       "other_names": "synonyms",
       "side_effects": ["list"],
-      "concerns": ["bans/warnings"],
-      "safe": "safe/caution"
+      "concerns": ["allergens/bans/warnings"],
+      "safe": "safe/caution/beware"
     }
   ],
   "overallSafety": "Safe/Low Risk/Moderate/High Risk",
@@ -29,9 +31,10 @@ const ANALYSISPROMPT = `Analyze these skincare/medication ingredients and return
 **Rules for overallSafety**:
 1. **High Risk** if:
    - Any ingredient is banned in EU/US/Japan
-   - Contains carcinogens, endocrine disruptors, or severe allergens (e.g., formaldehyde)
+   - Contains carcinogens, endocrine disruptors, severe allergens, or confits due to medical conditions
 2. **Moderate Risk** if:
    - Contains regionally restricted ingredients (e.g., phenoxyethanol limited to 1% in EU)
+   - If skincare product does not match listed skin type, but no severe allergens
    - 1+ severe allergen (e.g., methylisothiazolinone)
 3. **Low Risk** if:
    - 2+ minor cautions (e.g., drying alcohols, fragrance allergens)
@@ -42,6 +45,7 @@ const ANALYSISPROMPT = `Analyze these skincare/medication ingredients and return
 **Recommendations must**:
 - Mention specific banned/risky ingredients
 - Suggest alternatives for High/Moderate risks
+- If the user's profile includes allergies/conditions, tailor recommendations and warn them about allergens/irritants.
 - Example: 'Avoid: Contains EU-banned hydroquinone'
 
 **Prioritize data from**:
@@ -58,8 +62,8 @@ const ANALYSISPROMPT = `Analyze these skincare/medication ingredients and return
       "usage": "Antimicrobial agent",
       "other_names": "EGPE, Rose Ether",
       "side_effects": ["Skin irritation at >1%"],
-      "concerns": ["Restricted to 1% in EU"],
-      "safe": "caution"
+      "concerns": ["Due to Phenoxyethanol being an allergen, do not use this product.", "Restricted to 1% in EU"],
+      "safe": "warning"
     },
     {
       "ingredient_name": "Retinol",
@@ -71,8 +75,8 @@ const ANALYSISPROMPT = `Analyze these skincare/medication ingredients and return
       "safe": "caution"
     }
   ],
-  "overallSafety": "Moderate",
-  "recommendations": "Contains 2 cautionary ingredients. Phenoxyethanol is restricted in the EU; retinol may cause irritation. Consult a dermatologist."
+  "overallSafety": "High Risk",
+  "recommendations": "Contains allergen (Phenoxyethanol).  Contains 2 cautionary ingredients. Phenoxyethanol is restricted in the EU; retinol may cause irritation. Consult a dermatologist."
 }
 
 Ingredients: `;
@@ -131,19 +135,26 @@ const ScanProduct = () => {
           const ingredients = ocr.response.text();
           console.log(ingredients);
 
-          const analyze = await model.generateContent([ANALYSISPROMPT + ingredients]);
+          let prompt2 = '';
+          if (localStorage.getItem("allergies"))
+            prompt2 += PROFILEALLERGIES + localStorage.getItem("allergies")
+          if (localStorage.getItem("conditions"))
+            prompt2 += PROFILECONDITIONS + localStorage.getItem("conditions")
+          prompt2  += ANALYSISPROMPT + ingredients;
+          const analyze = await model.generateContent([prompt2]);
           const analyzeResponse = await analyze.response.text();
           console.log(analyzeResponse);
 
-          let parsedResponse;
-          try {
-            const cleanJson = analyzeResponse
-              .replace(/^```json?\n|\n```$/g, '')  // Remove starting/ending backticks and 'json'```
+          var cleanJson = analyzeResponse
+              .replace(/^```json/, '')
+              .replace(/```[\s\S]*$/, '')  // Remove starting/ending backticks and 'json'```
               .trim();
 
+          let parsedResponse;
+          try {
             parsedResponse = JSON.parse(cleanJson.trim());
           } catch (error) {
-            console.error("Failed to parse JSON:", error, analyzeResponse);
+            console.error("Failed to parse JSON:", error, cleanJson);
             return;
           }
 
@@ -151,7 +162,7 @@ const ScanProduct = () => {
             ingredients: parsedResponse.ingredients.map(ingredient => ({
               name: ingredient.ingredient_name,
               safety: ingredient.safe.charAt(0).toUpperCase() + ingredient.safe.slice(1),
-              description: `${ingredient.usage} ${ingredient.background}`,
+              description: ingredient.background,
               otherNames: ingredient.other_names,
               sideEffects: ingredient.side_effects,
               concerns: ingredient.concerns,
