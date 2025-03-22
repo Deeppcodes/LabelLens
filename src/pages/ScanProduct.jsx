@@ -30,7 +30,7 @@ const ANALYSISPROMPT = `Analyze these skincare/medication ingredients and return
 
 **Rules for safe**:
 1. **beware** if:
-   - Any ingredient is banned in EU/US/Japan
+   - Any ingredient is banned in EU/US/Japan for human related reasons, not for environmental impact reason
    - Contains carcinogens, endocrine disruptors, severe allergens, or confits due to medical conditions
 2. **caution** if:
    - Irritants, or minor cautions
