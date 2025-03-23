@@ -50,9 +50,8 @@ const ScanResults = () => {
         Back
       </button>
 
-      <h1>Analysis Results</h1>
       <div className="results-container">
-        
+      <h1>Analysis Results</h1>        
         
         {selectedImage && (
           <div className="image-preview">

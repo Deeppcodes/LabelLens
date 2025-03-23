@@ -129,10 +129,11 @@ const MainSearch = () => {
       console.log('Analysis Response:', analyzeResponse);
 
       var cleanJson = analyzeResponse
-        .replace(/^```json/, '')
+        .replace(/^[\s\S]*?```json/, '')
         .replace(/```[\s\S]*$/, '')
         .trim();
 
+      console.log(cleanJson);
       let parsedResponse = JSON.parse(cleanJson.trim());
 
       const formattedAnalysis = {
