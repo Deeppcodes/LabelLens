@@ -1,0 +1,36 @@
+# Use Node.js as the base image
+FROM node:18-slim
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy package.json and install dependencies
+COPY package.json package-lock.json ./
+RUN npm install --omit=dev
+
+# Copy the entire project
+COPY . .
+
+# Build the Vite app
+RUN npm run build
+
+# Install Express to serve the static files
+RUN npm install express
+
+# Create a simple Express server
+RUN echo "import express from 'express'; \
+import path from 'path'; \
+import { fileURLToPath } from 'url'; \
+const app = express(); \
+const __dirname = path.dirname(fileURLToPath(import.meta.url)); \
+app.use(express.static(path.join(__dirname, 'dist'))); \
+app.get('*', (req, res) => { res.sendFile(path.join(__dirname, 'dist', 'index.html')); }); \
+const PORT = process.env.PORT || 8080; \
+app.listen(PORT, () => console.log('Server running on port', PORT));" > server.js
+
+# Expose port 8080
+EXPOSE 8080
+
+# Start the Express server
+CMD ["node", "server.js"]
+
