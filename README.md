@@ -22,7 +22,7 @@ LabelLens combats both with:
 # How to run
 1. Clone the repository
 ```bash
-git clone https://github.com/your-username/LabelLens.git
+git clone https://github.com/Deeppcodes/LabelLens.git
 ```
 2. Navigate to the project directory
 ```bash
