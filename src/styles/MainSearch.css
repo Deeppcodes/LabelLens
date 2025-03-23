@@ -282,18 +282,18 @@
 
 .feature-descriptions {
   display: flex;
-  justify-content: center; /* Centers the boxes horizontally */
-  align-items: center; /* Centers them vertically */
+  justify-content: center;
+  align-items: flex-start;
   gap: 3rem;
-  margin: 5rem auto;
+  margin: 3rem auto; /* Reduced from 3rem to 2rem */
   padding: 0 2rem;
   width: 100%;
-  flex-wrap: nowrap; /* Prevents boxes from wrapping to the next line */
+  flex-wrap: nowrap;
 }
 
 .feature {
   background: white;
-  padding: 2rem;
+  padding: 1rem 1.5rem;
   border-radius: 16px;
   box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   text-align: center;
@@ -302,12 +302,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-
-  /* Enforce square shape */
+  justify-content: flex-start;
+  
   aspect-ratio: 1/1;
-  width: 250px; /* Set a fixed width to maintain consistency */
-  min-height: 250px;
+  width: 280px;  /* Increased from 250px */
+  min-height: 280px;  /* Increased from 250px */
 }
 
 .feature:hover {
@@ -323,7 +322,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 1rem;
+  margin: 0.5rem auto 1rem; /* Reduced top margin from 1rem */
   transition: transform 0.2s ease-in-out;
 }
 
@@ -371,3 +370,4 @@
 button svg {
   margin-right: 0.5rem;
 }
+
