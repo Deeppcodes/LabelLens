@@ -1,8 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import LabelLensLogo from "../assets/LabelLens_Logo.png";
 
 const Navbar = () => {
+  const location = useLocation();
+  const currentPath = location.pathname;
+
   return (
     <nav className="navbar">
       <div className="container">
@@ -18,12 +21,18 @@ const Navbar = () => {
         </div>
         <div className="nav-items">
           <div className="nav-item">
-            <Link to="/" className="nav-button">
+            <Link 
+              to="/" 
+              className={`nav-button ${currentPath === '/' ? 'active' : ''}`}
+            >
               <span>Home</span>
             </Link>
           </div>
           <div className="nav-item">
-            <Link to="/profile" className="nav-button">
+            <Link 
+              to="/profile" 
+              className={`nav-button ${currentPath === '/profile' ? 'active' : ''}`}
+            >
               <span>Profile</span>
             </Link>
           </div>

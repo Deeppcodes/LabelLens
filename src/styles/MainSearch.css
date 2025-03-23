@@ -170,14 +170,14 @@
   font-size: 0.95rem;
   font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: opacity 0.2s;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .search-button:hover {
-  background-color: var(--primary-dark);
+  opacity: 0.5;
 }
 
 .dropdown-icon {

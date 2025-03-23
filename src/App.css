@@ -104,7 +104,7 @@ body {
   background-color: var(--light-gray);
 }
 
-.nav-items .nav-item:first-child .nav-button {
+.nav-button.active {
   background-color: var(--primary-light);
   color: var(--primary-color);
 }
@@ -273,16 +273,11 @@ body {
   padding: 0.75rem 1.5rem;
   font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.2s;
   height: fit-content;
   min-width: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.search-button:hover {
-  background-color: #0066dd;
 }
 
 .cta-buttons {
