@@ -282,13 +282,13 @@
 
 .feature-descriptions {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center; /* Centers the boxes horizontally */
   align-items: center; /* Centers them vertically */
   gap: 3rem;
   margin: 5rem auto;
   padding: 0 2rem;
-  max-width: 1500px;
+  width: 100%;
+  flex-wrap: nowrap; /* Prevents boxes from wrapping to the next line */
 }
 
 .feature {
@@ -366,4 +366,8 @@
     aspect-ratio: 1/1;
     min-height: 200px;
   }
+}
+
+button svg {
+  margin-right: 0.5rem;
 }
