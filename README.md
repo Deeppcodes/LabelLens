@@ -44,15 +44,8 @@ npm install
 npm run dev
 ```
 
-# Challenges we ran into
-- Finding and acquiring appropriate (non-biased) datasets of ingredient side-effects for retrieval augmented generation (RAG).  
-- no food
-
 # Accomplishments that we're proud of
 - We're proud to have learned to combine custom RAG algorithms with Google Gemini 
-
-# What We Learned
-- Cursor is a good AI
 
 # What's next for LabelLens
 - Comparing two items (e.g. If two items are )
