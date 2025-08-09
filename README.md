@@ -1,3 +1,5 @@
+[![IMAGE ALT TEXT](http://img.youtube.com/vi/23GoS9zQdn4/0.jpg)](http://www.youtube.com/watch?v=23GoS9zQdn4 "LabelLens")
+
 # Inspiration
 Ingredients (especially in skincare, cosmetics, and medicine!) are overwhelming.  With thousands of obscure ingredients and conflicting advice, users need a neutral, science-backed tool to decode ingredient labels.  LabelLens was born to democratize ingredient literacy!
 
