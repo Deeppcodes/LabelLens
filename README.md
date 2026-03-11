@@ -10,7 +10,9 @@ Devpost: [https://devpost.com/software/labellens](https://devpost.com/software/l
 Ingredients (especially in skincare, cosmetics, and medicine!) are overwhelming.  With thousands of obscure ingredients and conflicting advice, users need a neutral, science-backed tool to decode ingredient labels.  LabelLens was born to democratize ingredient literacy!
 
 # What it does
-LabelLens empowers its users by allowing for simple, un-biased, and convenient way to look up ingredients.  Users can either take a picture of an ingredient list to get a quick summary of each ingredient, look up a specific product's information and ingredients, or look up a specific ingredient themselves.
+LabelLens empowers its users by allowing for simple, un-biased, and convenient way to look up ingredients.  Users can either take a picture of an ingredient list to get a quick summary of each ingredient, look up a specific product's information and ingredients, or look up a specific ingredient themselves.  
+
+Users can also personalize their ingredient analysis by registering their health conditions to their profile.  The ingredient analysis will alert the user of precautions such as side-effects due to your own medical conditions, drug-drug interactions, and more!
 
 # Market Research
 Most competitors fail users in two ways:
